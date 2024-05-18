@@ -1,0 +1,6 @@
+struct Address {
+    int?    number;
+    int&    number;
+    int[]    number;
+    int    number;
+};

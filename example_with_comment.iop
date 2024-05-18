@@ -1,0 +1,4 @@
+/* THISISCOMMENT */
+struct abc {
+    int a;
+};

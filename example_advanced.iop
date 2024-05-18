@@ -1,0 +1,42 @@
+import abc;
+import abc.deedeed*;
+
+enum a {
+    adee,
+    ded,
+};
+
+package abc;
+typedef int a;
+typedef string[] MyStringArray;
+
+struct abc {
+    int a = 123 + 1212 * 23.2323;
+};
+
+interface MyIface {
+    createUser2
+        in    (string& login, string password, string abc)
+        out (int abc, de azza)
+        throw exn;
+};
+package plop; /*< package name of the file plop.iop */
+
+struct Plop {
+    Bar bar;
+};
+
+module MyModA {
+    abc abc;
+}
+
+module MyModB {
+    MyIfaceB b1;
+    MyIfaceB b2;
+}
+
+/* This module is broken, every interface overlaps! */
+module MyModC : MyModA, MyModB {
+    MyIfaceC c1;
+    MyIfaceC c2;
+};

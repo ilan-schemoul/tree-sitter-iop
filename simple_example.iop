@@ -1,8 +1,10 @@
+package add;
+
 struct Address {
-    int    number;
-    string street;
-    int    zipCode;
-    string country;
+    int?     number;
+    string[] street;
+    int&     zipCode;
+    string   country;
 };
 
 struct User {
