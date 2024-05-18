@@ -1,0 +1,12 @@
+struct Address {
+    int    number;
+    string street;
+    int    zipCode;
+    string country;
+};
+
+struct User {
+    int     id;
+    string  name;
+    Address address;
+};
