@@ -1,33 +1,25 @@
 import abc;
 import abc.deedeed*;
+package plop; /*< package name of the file plop.iop */
 
 enum a {
     adee,
     ded,
+    abc
 };
+
 
 package abc;
 typedef int a;
 typedef string[] MyStringArray;
 
-struct abc {
-    int a = 123 + 1212 * 23.2323;
-};
+/* This module is broken, every interface overlaps! */
 
 interface MyIface {
     createUser2
-        in    (string& login, string password, string abc)
+        in    (string password, string& login, string abc)
         out (int abc, de azza)
         throw exn;
-};
-package plop; /*< package name of the file plop.iop */
-
-struct Plop {
-    Bar bar;
-};
-
-module MyModA {
-    abc abc;
 }
 
 module MyModB {
@@ -35,7 +27,20 @@ module MyModB {
     MyIfaceB b2;
 }
 
-/* This module is broken, every interface overlaps! */
+
+struct abc {
+    int a = 123 + 1212 * 23.2323;
+    int b;
+};
+
+module MyModA {
+    abc abc;
+};
+
+struct Plop {
+    Bar bar;
+};
+
 module MyModC : MyModA, MyModB {
     MyIfaceC c1;
     MyIfaceC c2;
