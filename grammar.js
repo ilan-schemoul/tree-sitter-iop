@@ -12,6 +12,9 @@ module.exports = grammar({
       $.package_definition,
       $.typedef_definition,
       $.import_definition,
+
+      // $.attribute,
+
       $.module_definition,
       $.data_structure_definition,
       $.enum_definition,
@@ -61,6 +64,7 @@ module.exports = grammar({
     ),
 
     module_field: $ => seq(
+      optional($.tag),
       $.identifier,
       $.identifier,
       ";"
@@ -81,6 +85,7 @@ module.exports = grammar({
     ),
 
     enum_field: $ => seq(
+      optional($.tag),
       $.identifier,
       $.default_value,
     ),
@@ -105,6 +110,7 @@ module.exports = grammar({
     ),
 
     rpc: $ => seq(
+      // optional($.attribute),
       $.identifier,
       $.rpc_in,
       optional($.rpc_out),
@@ -114,7 +120,7 @@ module.exports = grammar({
 
     rpc_in: $ => seq(
       "in",
-      $.argument_list
+      choice($.argument_list, "null", "void"),
     ),
 
     rpc_out: $ => seq(
@@ -154,6 +160,7 @@ module.exports = grammar({
     ),
 
     field: $ => seq(
+      optional($.tag),
       $.variable,
       ";",
     ),
@@ -212,7 +219,20 @@ module.exports = grammar({
       "false",
     ),
 
+    tag_number: $ => /[0-9]+/,
+
+    tag: $ => seq(
+      $.tag_number,
+      ":",
+    ),
+
     identifier: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
+
+    attribute: $ => seq(
+      "@",
+      $.identifier,
+      $.argument_list,
+    ),
 
     comment: _ => token(choice(
       seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),

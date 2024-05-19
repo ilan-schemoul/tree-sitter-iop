@@ -8,6 +8,8 @@
  "out"
  "throw"
  "module"
+ "null"
+ "void"
 ] @keyword.type
 
 [
@@ -20,6 +22,7 @@
 (path) @module
 
 (number) @number
+(tag_number) @number
 
 (type_specifier) @punctuation.special
 

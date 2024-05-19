@@ -186,6 +186,18 @@
       "type": "SEQ",
       "members": [
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "tag"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "identifier"
         },
@@ -260,6 +272,18 @@
     "enum_field": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "tag"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "SYMBOL",
           "name": "identifier"
@@ -385,8 +409,21 @@
           "value": "in"
         },
         {
-          "type": "SYMBOL",
-          "name": "argument_list"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "argument_list"
+            },
+            {
+              "type": "STRING",
+              "value": "null"
+            },
+            {
+              "type": "STRING",
+              "value": "void"
+            }
+          ]
         }
       ]
     },
@@ -539,6 +576,18 @@
     "field": {
       "type": "SEQ",
       "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "tag"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
         {
           "type": "SYMBOL",
           "name": "variable"
@@ -751,9 +800,43 @@
         }
       ]
     },
+    "tag_number": {
+      "type": "PATTERN",
+      "value": "[0-9]+"
+    },
+    "tag": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "tag_number"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        }
+      ]
+    },
     "identifier": {
       "type": "PATTERN",
       "value": "[a-zA-Z][a-zA-Z0-9_]*"
+    },
+    "attribute": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "@"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "argument_list"
+        }
+      ]
     },
     "comment": {
       "type": "TOKEN",

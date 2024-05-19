@@ -126,6 +126,10 @@
         {
           "type": "identifier",
           "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
         }
       ]
     }
@@ -135,9 +139,13 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "tag",
+          "named": true
+        },
         {
           "type": "variable",
           "named": true
@@ -227,6 +235,10 @@
       "types": [
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "tag",
           "named": true
         }
       ]
@@ -320,7 +332,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "argument_list",
@@ -408,6 +420,21 @@
         },
         {
           "type": "typedef_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tag",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "tag_number",
           "named": true
         }
       ]
@@ -544,6 +571,10 @@
     "named": false
   },
   {
+    "type": "@",
+    "named": false
+  },
+  {
     "type": "[]",
     "named": false
   },
@@ -634,6 +665,10 @@
   {
     "type": "struct",
     "named": false
+  },
+  {
+    "type": "tag_number",
+    "named": true
   },
   {
     "type": "throw",
