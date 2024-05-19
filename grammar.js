@@ -9,16 +9,16 @@ module.exports = grammar({
   rules: {
 
     source_file: $ => repeat(choice(
-      $.package_statement,
+      $.package_definition,
       $.data_structure_definition,
       $.enum_definition,
-      $.typedef_declaration,
-      $.interface_declaration,
-      $.module_declaration,
-      $.import_statement,
+      $.typedef_definition,
+      $.interface_definition,
+      $.module_definition,
+      $.import_definition,
     )),
 
-    import_statement: $ => seq(
+    import_definition: $ => seq(
       "import",
       $.path,
       ";"
@@ -26,12 +26,12 @@ module.exports = grammar({
 
     path: $ => /[a-zA-Z][a-zA-Z0-9_.*]*/,
 
-    module_declaration: $ => seq(
+    module_definition: $ => seq(
       "module",
       $.identifier,
       optional($.module_inheritance),
       $.module_block,
-      ";",
+      optional(";"),
     ),
 
     module_inheritance: $ => seq(
@@ -65,7 +65,7 @@ module.exports = grammar({
       "enum",
       $.identifier,
       $.enum_block,
-      ";",
+      optional(";"),
     ),
 
     default_value: $ => seq(
@@ -105,18 +105,18 @@ module.exports = grammar({
       optional($.default_value),
     ),
 
-    typedef_declaration: $ => seq(
+    typedef_definition: $ => seq(
       "typedef",
       $.variable,
       $.identifier,
       ";"
     ),
 
-    interface_declaration: $ => seq(
+    interface_definition: $ => seq(
       "interface",
       $.identifier,
       $.rpcs,
-      ";"
+      optional(";"),
     ),
 
     rpcs: $ => seq(
@@ -167,7 +167,7 @@ module.exports = grammar({
       $.data_structure_block,
     ),
 
-    package_statement: $ => seq(
+    package_definition: $ => seq(
       'package',
       $.identifier,
       ';',
@@ -185,7 +185,7 @@ module.exports = grammar({
       '{',
       repeat($.field),
       '}',
-      ";",
+      optional(";"),
     ),
 
     field: $ => seq(

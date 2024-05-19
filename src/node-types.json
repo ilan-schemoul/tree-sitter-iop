@@ -168,7 +168,7 @@
     }
   },
   {
-    "type": "import_statement",
+    "type": "import_definition",
     "named": true,
     "fields": {},
     "children": {
@@ -183,7 +183,7 @@
     }
   },
   {
-    "type": "interface_declaration",
+    "type": "interface_definition",
     "named": true,
     "fields": {},
     "children": {
@@ -217,7 +217,7 @@
     }
   },
   {
-    "type": "module_declaration",
+    "type": "module_definition",
     "named": true,
     "fields": {},
     "children": {
@@ -280,7 +280,7 @@
     "fields": {}
   },
   {
-    "type": "package_statement",
+    "type": "package_definition",
     "named": true,
     "fields": {},
     "children": {
@@ -413,23 +413,23 @@
           "named": true
         },
         {
-          "type": "import_statement",
+          "type": "import_definition",
           "named": true
         },
         {
-          "type": "interface_declaration",
+          "type": "interface_definition",
           "named": true
         },
         {
-          "type": "module_declaration",
+          "type": "module_definition",
           "named": true
         },
         {
-          "type": "package_statement",
+          "type": "package_definition",
           "named": true
         },
         {
-          "type": "typedef_declaration",
+          "type": "typedef_definition",
           "named": true
         }
       ]
@@ -441,7 +441,7 @@
     "fields": {}
   },
   {
-    "type": "typedef_declaration",
+    "type": "typedef_definition",
     "named": true,
     "fields": {},
     "children": {

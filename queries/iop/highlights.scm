@@ -34,7 +34,7 @@
   (identifier) @type
 (_))
 
-(interface_declaration
+(interface_definition
   (identifier) @type
 (_))
 
@@ -74,7 +74,7 @@
     (identifier) @type
     (identifier) @variable.parameter))
 
-(module_declaration
+(module_definition
   (identifier) @type
   (_
     (identifier) @type))

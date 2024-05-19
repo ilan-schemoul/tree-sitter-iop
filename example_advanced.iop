@@ -19,25 +19,25 @@ interface MyIface {
         in    (string password, string& login, string abc)
         out (int abc, de azza)
         throw exn;
+};
+
+module MyModA {
+    abc abc;
 }
 
-module MyModB {
+module abc {
     MyIfaceB b1;
     MyIfaceB b2;
-}
+};
 
 struct abc {
     int a = 123 + 1212 * 23.2323;
     int b;
 };
 
-module MyModA {
-    abc abc;
-};
-
 struct Plop {
     Bar bar;
-};
+}
 
 module MyModC : MyModA, MyModB {
     MyIfaceC c1;

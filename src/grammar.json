@@ -8,7 +8,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "package_statement"
+            "name": "package_definition"
           },
           {
             "type": "SYMBOL",
@@ -20,24 +20,24 @@
           },
           {
             "type": "SYMBOL",
-            "name": "typedef_declaration"
+            "name": "typedef_definition"
           },
           {
             "type": "SYMBOL",
-            "name": "interface_declaration"
+            "name": "interface_definition"
           },
           {
             "type": "SYMBOL",
-            "name": "module_declaration"
+            "name": "module_definition"
           },
           {
             "type": "SYMBOL",
-            "name": "import_statement"
+            "name": "import_definition"
           }
         ]
       }
     },
-    "import_statement": {
+    "import_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -58,7 +58,7 @@
       "type": "PATTERN",
       "value": "[a-zA-Z][a-zA-Z0-9_.*]*"
     },
-    "module_declaration": {
+    "module_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -86,8 +86,16 @@
           "name": "module_block"
         },
         {
-          "type": "STRING",
-          "value": ";"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -211,8 +219,16 @@
           "name": "enum_block"
         },
         {
-          "type": "STRING",
-          "value": ";"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -353,7 +369,7 @@
         }
       ]
     },
-    "typedef_declaration": {
+    "typedef_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -374,7 +390,7 @@
         }
       ]
     },
-    "interface_declaration": {
+    "interface_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -390,8 +406,16 @@
           "name": "rpcs"
         },
         {
-          "type": "STRING",
-          "value": ";"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -583,7 +607,7 @@
         }
       ]
     },
-    "package_statement": {
+    "package_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -640,8 +664,16 @@
           "value": "}"
         },
         {
-          "type": "STRING",
-          "value": ";"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ";"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

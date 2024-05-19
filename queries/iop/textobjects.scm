@@ -11,9 +11,9 @@
   ","? @_end)
   (#make-range! "parameter.outer" @parameter.inner @_end))
 
-(module_declaration) @block.outer
+(module_definition) @block.outer
 (data_structure_definition) @block.outer
-(interface_declaration) @block.outer
+(interface_definition) @block.outer
 (enum_definition) @block.outer
 
 (enum_block
