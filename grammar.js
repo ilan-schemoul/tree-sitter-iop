@@ -13,7 +13,7 @@ module.exports = grammar({
       $.typedef_definition,
       $.import_definition,
 
-      // $.attribute,
+      $.attribute,
 
       $.module_definition,
       $.data_structure_definition,
@@ -110,7 +110,7 @@ module.exports = grammar({
     ),
 
     rpc: $ => seq(
-      // optional($.attribute),
+      optional($.attribute),
       $.identifier,
       $.rpc_in,
       optional($.rpc_out),
@@ -230,9 +230,21 @@ module.exports = grammar({
 
     attribute: $ => seq(
       "@",
-      $.identifier,
-      $.argument_list,
+      choice(
+        $.identifier,
+        seq($.identifier, $.attribute_argument_list),
+        $.attribute_argument_list,
+      ),
     ),
+
+    attribute_argument_list: $ => seq(
+      "(",
+      repeat(seq($.attribute_argument, ",")),
+      optional($.attribute_argument),
+      ")"
+    ),
+
+    attribute_argument: _ => /[a-zA-Z][a-zA-Z0-9_:]*/,
 
     comment: _ => token(choice(
       seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),

@@ -14,6 +14,10 @@
   "(" @delimiter
   ")" @delimiter @sentinel) @container
 
+(attribute_argument_list
+  "(" @delimiter
+  ")" @delimiter @sentinel) @container
+
 (module_block
   "{" @delimiter
   "}" @delimiter @sentinel) @container

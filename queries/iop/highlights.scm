@@ -22,6 +22,12 @@
 (path) @module
 
 (number) @number
+
+(attribute "@" @attribute (identifier)? @attribute)
+
+(attribute_argument_list
+  (attribute_argument) @variable)
+
 (tag_number) @number
 
 (type_specifier) @punctuation.special
