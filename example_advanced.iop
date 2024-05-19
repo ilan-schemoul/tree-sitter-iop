@@ -8,7 +8,6 @@ enum a {
     abc
 };
 
-
 package abc;
 typedef int a;
 typedef string[] MyStringArray;
@@ -26,7 +25,6 @@ module MyModB {
     MyIfaceB b1;
     MyIfaceB b2;
 }
-
 
 struct abc {
     int a = 123 + 1212 * 23.2323;
