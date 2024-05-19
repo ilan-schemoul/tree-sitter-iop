@@ -10,13 +10,25 @@ module.exports = grammar({
 
     source_file: $ => repeat(choice(
       $.package_definition,
+      $.typedef_definition,
+      $.import_definition,
+      $.module_definition,
       $.data_structure_definition,
       $.enum_definition,
-      $.typedef_definition,
       $.interface_definition,
-      $.module_definition,
-      $.import_definition,
     )),
+
+    package_definition: $ => seq(
+      'package',
+      $.identifier,
+      ';',
+    ),
+
+    typedef_definition: $ => seq(
+      "typedef",
+      $.variable,
+      ";"
+    ),
 
     import_definition: $ => seq(
       "import",
@@ -34,11 +46,13 @@ module.exports = grammar({
       optional(";"),
     ),
 
+
     module_inheritance: $ => seq(
       ":",
       repeat(seq($.identifier, ",")),
       $.identifier,
     ),
+
 
     module_block: $ => seq(
       "{",
@@ -52,15 +66,6 @@ module.exports = grammar({
       ";"
     ),
 
-    comment: _ => token(choice(
-      seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
-      seq(
-        '/*',
-        /[^*]*\*+([^/*][^*]*\*+)*/,
-        '/',
-      ),
-    )),
-
     enum_definition: $ => seq(
       "enum",
       $.identifier,
@@ -68,49 +73,21 @@ module.exports = grammar({
       optional(";"),
     ),
 
-    default_value: $ => seq(
-      "=",
-      $.value,
-    ),
-
-    value: $ => repeat1(choice($.number, $.operator)),
-
-    number: $ => choice(
-      /-?[0-9]*\.[0-9]+([eE][+-]?[0-9]+)?/,
-      /-?(0x[0-9a-fA-F]+|[1-9][0-9]*)[a-zA-Z]*/,
-      /0[0-7]*[a-zA-Z]*/,
-    ),
-
-    operator: $ => choice(
-      "<<",
-      ">>",
-      "**",
-      "*",
-      "+",
-      "-",
-      "/",
-      "true",
-      "false",
-    ),
-
     enum_block: $ => seq(
       "{",
-      repeat($.enum_field),
+      repeat(seq($.enum_field, ",")),
       "}",
 
     ),
 
     enum_field: $ => seq(
       $.identifier,
-      optional($.default_value),
-      ",",
+      $.default_value,
     ),
 
-    typedef_definition: $ => seq(
-      "typedef",
-      $.variable,
-      $.identifier,
-      ";"
+    default_value: $ => seq(
+      "=",
+      $.value,
     ),
 
     interface_definition: $ => seq(
@@ -145,21 +122,16 @@ module.exports = grammar({
       choice($.argument_list, "null", "void"),
     ),
 
-    argument_list: $ => seq(
-      "(",
-      repeat(seq($.argument, ",")),
-      optional($.argument),
-      ")"
-    ),
-
-    argument: $ => seq(
-      $.variable,
-      $.identifier,
-    ),
-
     rpc_throw: $ => seq(
       "throw",
       $.identifier,
+    ),
+
+    argument_list: $ => seq(
+      "(",
+      repeat(seq($.variable, ",")),
+      optional($.variable),
+      ")"
     ),
 
     data_structure_definition: $ => seq(
@@ -168,19 +140,11 @@ module.exports = grammar({
       $.data_structure_block,
     ),
 
-    package_definition: $ => seq(
-      'package',
-      $.identifier,
-      ';',
-    ),
-
     data_structure_type: $ => choice(
       'union',
       'class',
       'struct',
     ),
-
-    identifier: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
 
     data_structure_block: $ => seq(
       '{',
@@ -191,14 +155,14 @@ module.exports = grammar({
 
     field: $ => seq(
       $.variable,
-      $.identifier,
-      optional($.default_value),
       ";",
     ),
 
     variable: $ => seq(
       $.primitive_type,
       optional($.type_specifier),
+      $.identifier,
+      optional($.default_value),
     ),
 
     primitive_type: $ => choice(
@@ -224,5 +188,40 @@ module.exports = grammar({
       "&",
       "[]",
     ),
+
+    value: $ => repeat1(choice($.number, $.operator, $.constant)),
+
+    number: $ => choice(
+      /-?[0-9]*\.[0-9]+([eE][+-]?[0-9]+)?/,
+      /-?(0x[0-9a-fA-F]+|[1-9][0-9]*)[a-zA-Z]*/,
+      /0[0-7]*[a-zA-Z]*/,
+    ),
+
+    operator: $ => choice(
+      "<<",
+      ">>",
+      "**",
+      "*",
+      "+",
+      "-",
+      "/",
+    ),
+
+    constant: $ => choice(
+      "true",
+      "false",
+    ),
+
+    identifier: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
+
+    comment: _ => token(choice(
+      seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
+      seq(
+        '/*',
+        /[^*]*\*+([^/*][^*]*\*+)*/,
+        '/',
+      ),
+    )),
   }
 });
+

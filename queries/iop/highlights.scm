@@ -10,6 +10,11 @@
  "module"
 ] @keyword.type
 
+[
+ "true"
+ "false"
+] @boolean
+
 "import" @keyword.import
 
 (path) @module
@@ -42,9 +47,9 @@
   (enum_field
     (identifier) @constant))
 
-(argument
+(argument_list (variable
   (_)
-  (identifier) @variable.parameter)
+  (identifier) @variable.parameter))
 
 (rpc_throw
   (identifier) @variable.parameter)

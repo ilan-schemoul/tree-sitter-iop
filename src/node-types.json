@@ -1,24 +1,5 @@
 [
   {
-    "type": "argument",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "argument_list",
     "named": true,
     "fields": {},
@@ -27,11 +8,16 @@
       "required": false,
       "types": [
         {
-          "type": "argument",
+          "type": "variable",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "constant",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "data_structure_block",
@@ -149,17 +135,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "default_value",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
         {
           "type": "variable",
           "named": true
@@ -445,13 +423,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
         {
           "type": "variable",
           "named": true
@@ -467,6 +441,10 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "constant",
+          "named": true
+        },
         {
           "type": "number",
           "named": true
@@ -486,6 +464,14 @@
       "multiple": true,
       "required": true,
       "types": [
+        {
+          "type": "default_value",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
         {
           "type": "primitive_type",
           "named": true
