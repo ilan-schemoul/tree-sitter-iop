@@ -329,17 +329,8 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "enum_field"
-              },
-              {
-                "type": "STRING",
-                "value": ","
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "enum_field"
           }
         },
         {
@@ -366,6 +357,10 @@
               "type": "BLANK"
             }
           ]
+        },
+        {
+          "type": "STRING",
+          "value": ","
         }
       ]
     },

@@ -95,7 +95,7 @@ module.exports = grammar({
 
     enum_block: $ => seq(
       "{",
-      repeat(seq($.enum_field, ",")),
+      repeat($.enum_field),
       "}",
 
     ),
@@ -103,6 +103,7 @@ module.exports = grammar({
     enum_field: $ => seq(
       $.identifier,
       optional($.default_value),
+      ",",
     ),
 
     typedef_definition: $ => seq(

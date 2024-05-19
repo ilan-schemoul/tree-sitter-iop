@@ -16,17 +16,7 @@
 (interface_definition) @block.outer
 (enum_definition) @block.outer
 
-(enum_block
-  .
-  "{"
-  .
-  (_) @_start @_end
-  (_)? ","? @_end
-  .
-  "}"
-  (#make-range! "block.inner" @_start @_end))
-
-(data_structure_block
+(_
   .
   "{"
   .
@@ -36,22 +26,13 @@
   "}"
   (#make-range! "block.inner" @_start @_end))
 
-(rpcs
-  .
-  "{"
-  .
-  (_) @_start @_end
-  (_)? @_end
-  .
-  "}"
-  (#make-range! "block.inner" @_start @_end))
+(value) @assignment.rhs
 
-(module_block
+(((rpc
+  (identifier) @_start
   .
-  "{"
+  (_)
+  (_)?
+  ";"? @_end
   .
-  (_) @_start @_end
-  (_)? @_end
-  .
-  "}"
-  (#make-range! "block.inner" @_start @_end))
+) (#make-range! "block.inner" @_start @_end)) @block.outer)

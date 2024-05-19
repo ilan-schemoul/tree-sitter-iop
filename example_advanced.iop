@@ -4,17 +4,19 @@ package plop; /*< package name of the file plop.iop */
 
 enum a {
     adee,
-    ded,
-    abc
+    ded = 2323,
+    abc,
 };
 
 package abc;
 typedef int a;
 typedef string[] MyStringArray;
 
-/* This module is broken, every interface overlaps! */
-
 interface MyIface {
+    createUser3
+        in    (string abc, string password, string& login)
+        throw exn;
+
     createUser2
         in    (string password, string& login, string abc)
         out (int abc, de azza)
@@ -36,7 +38,7 @@ struct abc {
 };
 
 struct Plop {
-    Bar bar;
+    Bar bar = 43;
 }
 
 module MyModC : MyModA, MyModB {
