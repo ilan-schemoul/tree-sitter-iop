@@ -32,7 +32,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "class"
+            "name": "class_definition"
           },
           {
             "type": "SYMBOL",
@@ -539,7 +539,7 @@
         }
       ]
     },
-    "class": {
+    "class_definition": {
       "type": "SEQ",
       "members": [
         {
@@ -563,10 +563,6 @@
             "type": "SYMBOL",
             "name": "class_inheritance"
           }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "identifier"
         },
         {
           "type": "SYMBOL",
@@ -599,7 +595,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "tag"
+              "name": "tag_number"
             },
             {
               "type": "SYMBOL",
@@ -687,12 +683,33 @@
           ]
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "field_qualifier"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "SYMBOL",
           "name": "variable"
         },
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "field_qualifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "static"
         }
       ]
     },
@@ -871,7 +888,7 @@
     },
     "string_content": {
       "type": "PATTERN",
-      "value": "[a-zA-Z0-9 ]*?"
+      "value": "[^\"]*?"
     },
     "number": {
       "type": "CHOICE",
@@ -955,7 +972,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z][.a-zA-Z0-9_]*"
+      "value": "[a-zA-Z][.a-zA-Z0-9_.]*"
     },
     "attribute": {
       "type": "SEQ",
@@ -1034,29 +1051,38 @@
       ]
     },
     "attribute_argument": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "attribute_identifier"
-        },
-        {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
               "type": "SYMBOL",
-              "name": "default_value"
+              "name": "attribute_identifier"
             },
             {
-              "type": "BLANK"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "default_value"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
         }
       ]
     },
     "attribute_identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z][a-zA-Z0-9_:]*"
+      "value": "[a-zA-Z][a-zA-Z0-9_.:]*"
     },
     "comment": {
       "type": "TOKEN",

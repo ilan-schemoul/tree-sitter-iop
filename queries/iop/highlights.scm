@@ -1,6 +1,9 @@
 (data_structure_type) @keyword.type
 [
  "interface"
+ "class"
+ "struct"
+ "enum"
  "typedef"
  "package"
  "in"
@@ -12,6 +15,7 @@
  "void"
  "abstract"
  "local"
+ "static"
 ] @keyword.type
 
 [
@@ -47,6 +51,10 @@
     (identifier) @constant))
 
 (data_structure_definition
+  (identifier) @type
+(_))
+
+(class_definition
   (identifier) @type
 (_))
 

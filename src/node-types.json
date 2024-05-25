@@ -48,6 +48,10 @@
         {
           "type": "default_value",
           "named": true
+        },
+        {
+          "type": "string",
+          "named": true
         }
       ]
     }
@@ -68,7 +72,7 @@
     }
   },
   {
-    "type": "class",
+    "type": "class_definition",
     "named": true,
     "fields": {},
     "children": {
@@ -107,7 +111,7 @@
           "named": true
         },
         {
-          "type": "tag",
+          "type": "tag_number",
           "named": true
         }
       ]
@@ -251,6 +255,10 @@
       "required": true,
       "types": [
         {
+          "type": "field_qualifier",
+          "named": true
+        },
+        {
           "type": "tag",
           "named": true
         },
@@ -260,6 +268,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "field_qualifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "import_definition",
@@ -511,7 +524,7 @@
           "named": true
         },
         {
-          "type": "class",
+          "type": "class_definition",
           "named": true
         },
         {
@@ -811,6 +824,10 @@
   },
   {
     "type": "short",
+    "named": false
+  },
+  {
+    "type": "static",
     "named": false
   },
   {

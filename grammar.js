@@ -17,7 +17,7 @@ module.exports = grammar({
 
       $.module_definition,
       $.data_structure_definition,
-      $.class,
+      $.class_definition,
       $.enum_definition,
       $.interface_definition,
     )),
@@ -141,12 +141,11 @@ module.exports = grammar({
       ")"
     ),
 
-    class: $ => seq(
+    class_definition: $ => seq(
       repeat($.class_modifier),
       "class",
       $.identifier,
       repeat($.class_inheritance),
-      $.identifier,
       $.data_structure_block,
     ),
 
@@ -157,7 +156,7 @@ module.exports = grammar({
 
     class_inheritance: $ => seq(
       ":",
-      choice($.tag, $.identifier),
+      choice($.tag_number, $.identifier),
     ),
 
     data_structure_definition: $ => seq(
@@ -180,8 +179,13 @@ module.exports = grammar({
 
     field: $ => seq(
       optional($.tag),
+      optional($.field_qualifier),
       $.variable,
       ";",
+    ),
+
+    field_qualifier: $ => choice(
+      "static",
     ),
 
     variable: $ => seq(
@@ -223,7 +227,7 @@ module.exports = grammar({
       '"',
     ),
 
-    string_content: _ => /[a-zA-Z0-9 ]*?/,
+    string_content: _ => /[^"]*?/,
 
     number: $ => choice(
       /-?[0-9]*\.[0-9]+([eE][+-]?[0-9]+)?/,
@@ -253,7 +257,7 @@ module.exports = grammar({
       ":",
     ),
 
-    identifier: $ => /[a-zA-Z][.a-zA-Z0-9_]*/,
+    identifier: $ => /[a-zA-Z][.a-zA-Z0-9_.]*/,
 
     attribute: $ => seq(
       "@",
@@ -271,12 +275,15 @@ module.exports = grammar({
       ")"
     ),
 
-    attribute_argument: $ => seq(
-      $.attribute_identifier,
-      optional($.default_value),
+    attribute_argument: $ => choice(
+      seq(
+        $.attribute_identifier,
+        optional($.default_value),
+      ),
+      $.string,
     ),
 
-    attribute_identifier: _ => /[a-zA-Z][a-zA-Z0-9_:]*/,
+    attribute_identifier: _ => /[a-zA-Z][a-zA-Z0-9_.:]*/,
 
     comment: _ => token(choice(
       seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),
