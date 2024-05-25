@@ -10,6 +10,8 @@
  "module"
  "null"
  "void"
+ "abstract"
+ "local"
 ] @keyword.type
 
 [
@@ -94,3 +96,5 @@
     (identifier) @type))
 
 (primitive_type) @type
+
+(string) @string

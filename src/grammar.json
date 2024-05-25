@@ -32,6 +32,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "class"
+          },
+          {
+            "type": "SYMBOL",
             "name": "enum_definition"
           },
           {
@@ -254,15 +258,24 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SEQ",
+            "type": "CHOICE",
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "enum_field"
+                "name": "attribute"
               },
               {
-                "type": "STRING",
-                "value": ","
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "enum_field"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                ]
               }
             ]
           }
@@ -293,8 +306,16 @@
           "name": "identifier"
         },
         {
-          "type": "SYMBOL",
-          "name": "default_value"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "default_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -368,16 +389,11 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "attribute"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "attribute"
+          }
         },
         {
           "type": "SYMBOL",
@@ -523,6 +539,76 @@
         }
       ]
     },
+    "class": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "class_modifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "class"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "class_inheritance"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "data_structure_block"
+        }
+      ]
+    },
+    "class_modifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "abstract"
+        },
+        {
+          "type": "STRING",
+          "value": "local"
+        }
+      ]
+    },
+    "class_inheritance": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "tag"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        }
+      ]
+    },
     "data_structure_definition": {
       "type": "SEQ",
       "members": [
@@ -546,10 +632,6 @@
         {
           "type": "STRING",
           "value": "union"
-        },
-        {
-          "type": "STRING",
-          "value": "class"
         },
         {
           "type": "STRING",
@@ -734,24 +816,62 @@
       ]
     },
     "value": {
-      "type": "REPEAT1",
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "number"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "operator"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "constant"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "number"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "operator"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "constant"
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
+    },
+    "string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "string_content"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
+    },
+    "string_content": {
+      "type": "PATTERN",
+      "value": "[a-zA-Z0-9 ]*?"
     },
     "number": {
       "type": "CHOICE",
@@ -835,7 +955,7 @@
     },
     "identifier": {
       "type": "PATTERN",
-      "value": "[a-zA-Z][a-zA-Z0-9_]*"
+      "value": "[a-zA-Z][.a-zA-Z0-9_]*"
     },
     "attribute": {
       "type": "SEQ",
@@ -852,6 +972,10 @@
               "name": "identifier"
             },
             {
+              "type": "SYMBOL",
+              "name": "attribute_argument_list"
+            },
+            {
               "type": "SEQ",
               "members": [
                 {
@@ -863,10 +987,6 @@
                   "name": "attribute_argument_list"
                 }
               ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "attribute_argument_list"
             }
           ]
         }
@@ -914,6 +1034,27 @@
       ]
     },
     "attribute_argument": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "attribute_identifier"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "default_value"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        }
+      ]
+    },
+    "attribute_identifier": {
       "type": "PATTERN",
       "value": "[a-zA-Z][a-zA-Z0-9_:]*"
     },

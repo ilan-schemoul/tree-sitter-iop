@@ -17,6 +17,7 @@ module.exports = grammar({
 
       $.module_definition,
       $.data_structure_definition,
+      $.class,
       $.enum_definition,
       $.interface_definition,
     )),
@@ -79,7 +80,7 @@ module.exports = grammar({
 
     enum_block: $ => seq(
       "{",
-      repeat(seq($.enum_field, ",")),
+      repeat(choice($.attribute, seq($.enum_field, ","))),
       "}",
 
     ),
@@ -87,7 +88,7 @@ module.exports = grammar({
     enum_field: $ => seq(
       optional($.tag),
       $.identifier,
-      $.default_value,
+      optional($.default_value),
     ),
 
     default_value: $ => seq(
@@ -110,7 +111,7 @@ module.exports = grammar({
     ),
 
     rpc: $ => seq(
-      optional($.attribute),
+      repeat($.attribute),
       $.identifier,
       $.rpc_in,
       optional($.rpc_out),
@@ -140,6 +141,25 @@ module.exports = grammar({
       ")"
     ),
 
+    class: $ => seq(
+      repeat($.class_modifier),
+      "class",
+      $.identifier,
+      repeat($.class_inheritance),
+      $.identifier,
+      $.data_structure_block,
+    ),
+
+    class_modifier: $ => choice(
+      "abstract",
+      "local",
+    ),
+
+    class_inheritance: $ => seq(
+      ":",
+      choice($.tag, $.identifier),
+    ),
+
     data_structure_definition: $ => seq(
       $.data_structure_type,
       $.identifier,
@@ -148,7 +168,6 @@ module.exports = grammar({
 
     data_structure_type: $ => choice(
       'union',
-      'class',
       'struct',
     ),
 
@@ -196,7 +215,15 @@ module.exports = grammar({
       "[]",
     ),
 
-    value: $ => repeat1(choice($.number, $.operator, $.constant)),
+    value: $ => choice($.string, repeat1(choice($.number, $.operator, $.constant))),
+
+    string: $ => seq(
+      '"',
+      optional($.string_content),
+      '"',
+    ),
+
+    string_content: _ => /[a-zA-Z0-9 ]*?/,
 
     number: $ => choice(
       /-?[0-9]*\.[0-9]+([eE][+-]?[0-9]+)?/,
@@ -226,14 +253,14 @@ module.exports = grammar({
       ":",
     ),
 
-    identifier: $ => /[a-zA-Z][a-zA-Z0-9_]*/,
+    identifier: $ => /[a-zA-Z][.a-zA-Z0-9_]*/,
 
     attribute: $ => seq(
       "@",
       choice(
         $.identifier,
-        seq($.identifier, $.attribute_argument_list),
         $.attribute_argument_list,
+        seq($.identifier, $.attribute_argument_list),
       ),
     ),
 
@@ -244,7 +271,12 @@ module.exports = grammar({
       ")"
     ),
 
-    attribute_argument: _ => /[a-zA-Z][a-zA-Z0-9_:]*/,
+    attribute_argument: $ => seq(
+      $.attribute_identifier,
+      optional($.default_value),
+    ),
+
+    attribute_identifier: _ => /[a-zA-Z][a-zA-Z0-9_:]*/,
 
     comment: _ => token(choice(
       seq('//', /(\\+(.|\r?\n)|[^\\\n])*/),

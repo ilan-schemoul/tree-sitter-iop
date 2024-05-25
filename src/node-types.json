@@ -34,6 +34,25 @@
     }
   },
   {
+    "type": "attribute_argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "attribute_identifier",
+          "named": true
+        },
+        {
+          "type": "default_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "attribute_argument_list",
     "named": true,
     "fields": {},
@@ -47,6 +66,57 @@
         }
       ]
     }
+  },
+  {
+    "type": "class",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "class_inheritance",
+          "named": true
+        },
+        {
+          "type": "class_modifier",
+          "named": true
+        },
+        {
+          "type": "data_structure_block",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_inheritance",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_modifier",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "constant",
@@ -119,6 +189,10 @@
       "multiple": true,
       "required": false,
       "types": [
+        {
+          "type": "attribute",
+          "named": true
+        },
         {
           "type": "enum_field",
           "named": true
@@ -437,6 +511,10 @@
           "named": true
         },
         {
+          "type": "class",
+          "named": true
+        },
+        {
           "type": "data_structure_definition",
           "named": true
         },
@@ -462,6 +540,21 @@
         },
         {
           "type": "typedef_definition",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "string_content",
           "named": true
         }
       ]
@@ -521,6 +614,10 @@
         {
           "type": "operator",
           "named": true
+        },
+        {
+          "type": "string",
+          "named": true
         }
       ]
     }
@@ -551,6 +648,10 @@
         }
       ]
     }
+  },
+  {
+    "type": "\"",
+    "named": false
   },
   {
     "type": "&",
@@ -621,7 +722,11 @@
     "named": false
   },
   {
-    "type": "attribute_argument",
+    "type": "abstract",
+    "named": false
+  },
+  {
+    "type": "attribute_identifier",
     "named": true
   },
   {
@@ -677,6 +782,10 @@
     "named": false
   },
   {
+    "type": "local",
+    "named": false
+  },
+  {
     "type": "long",
     "named": false
   },
@@ -707,6 +816,10 @@
   {
     "type": "string",
     "named": false
+  },
+  {
+    "type": "string_content",
+    "named": true
   },
   {
     "type": "struct",
