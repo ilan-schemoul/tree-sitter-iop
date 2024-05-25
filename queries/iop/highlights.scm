@@ -46,6 +46,9 @@
   (identifier) @type
 (_))
 
+(default_value
+    (identifier) @variable)
+
 (enum_block
   (enum_field
     (identifier) @constant))
@@ -103,6 +106,6 @@
   (_
     (identifier) @type))
 
-(primitive_type) @type
+(type) @type
 
 (string) @string

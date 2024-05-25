@@ -93,7 +93,7 @@ module.exports = grammar({
 
     default_value: $ => seq(
       "=",
-      $.value,
+      choice($.identifier, $.value),
     ),
 
     interface_definition: $ => seq(
@@ -113,7 +113,7 @@ module.exports = grammar({
     rpc: $ => seq(
       repeat($.attribute),
       $.identifier,
-      $.rpc_in,
+      optional($.rpc_in),
       optional($.rpc_out),
       optional($.rpc_throw),
       ";",
@@ -121,12 +121,12 @@ module.exports = grammar({
 
     rpc_in: $ => seq(
       "in",
-      choice($.argument_list, "null", "void"),
+      choice($.argument_list, "null", "void", $.identifier),
     ),
 
     rpc_out: $ => seq(
       "out",
-      choice($.argument_list, "null", "void"),
+      choice($.argument_list, "null", "void", $.identifier),
     ),
 
     rpc_throw: $ => seq(
@@ -172,7 +172,7 @@ module.exports = grammar({
 
     data_structure_block: $ => seq(
       '{',
-      repeat($.field),
+      repeat(choice($.attribute, $.field)),
       '}',
       optional(";"),
     ),
@@ -189,13 +189,13 @@ module.exports = grammar({
     ),
 
     variable: $ => seq(
-      $.primitive_type,
+      $.type,
       optional($.type_specifier),
       $.identifier,
       optional($.default_value),
     ),
 
-    primitive_type: $ => choice(
+    type: $ => choice(
       'int',
       'string',
       'uint',
@@ -281,6 +281,7 @@ module.exports = grammar({
         optional($.default_value),
       ),
       $.string,
+      $.number,
     ),
 
     attribute_identifier: _ => /[a-zA-Z][a-zA-Z0-9_.:]*/,
